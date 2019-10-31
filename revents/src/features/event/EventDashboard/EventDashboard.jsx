@@ -62,6 +62,25 @@ class EventDashboard extends Component {
     selectedEvent: null
   };
 
+  // handleChange = () => {
+  //   this.setState(({ isOpen }) => ({
+  //     isOpen: !isOpen
+  //   }));
+  // };
+
+  handleCreateFormOpen = () => {
+    this.setState({
+      isOpen: true,
+      selectedEvent: null
+    });
+  };
+
+  handleFormCancel = () => {
+    this.setState({
+      isOpen: false
+    });
+  };
+
   handleCreateEvent = newEvent => {
     newEvent.id = cuid();
     newEvent.hostPhotoURL = "/assets/user.png";
@@ -78,24 +97,11 @@ class EventDashboard extends Component {
     });
   };
 
-  handleCreateFormOpen = () => {
-    this.setState({
-      isOpen: true,
-      selectedEvent: null
-    });
-  };
-
-  handleFormCancel = () => {
-    this.setState({
-      isOpen: false
-    });
-  };
-
   handleUpdateEvent = updatedEvent => {
     this.setState(({ events }) => ({
       events: events.map(event => {
         if (event.id === updatedEvent.id) {
-          return { ...updatedEvent };
+          return {...updatedEvent };
         } else {
           return event;
         }
@@ -105,35 +111,28 @@ class EventDashboard extends Component {
     }));
   };
 
-  handleDeleteEvent = id => {
-    this.setState(({ events }) => ({
+  handleDeleteEvent = (id) => {
+    this.setState(({events}) => ({
       events: events.filter(e => e.id !== id)
-    }));
-  };
-
-  // handleIsOpenToggle = () => {
-  //   this.setState(({ isOpen }) => ({
-  //     isOpen: !isOpen
-  //   }));
-  // };
-
+    }))
+  }
   render() {
     const { events, isOpen, selectedEvent } = this.state;
     return (
       <Grid>
         <Grid.Column width={10}>
-          <EventList
-            events={events}
-            selectEvent={this.handleSelectEvent}
-            deleteEvent={this.handleDeleteEvent}
-          />
+          <EventList 
+          events={events} 
+          selectEvent={this.handleSelectEvent} 
+          deleteEvent = {this.handleDeleteEvent}
+         />
         </Grid.Column>
         <Grid.Column width={6}>
           <Button
-            onClick={this.handleCreateFormOpen}
             positive
-            content="Create Event"
-          />
+            content="CreateEvent"
+            onClick={this.handleCreateFormOpen}
+          ></Button>
           {isOpen && (
             <EventForm
               key={selectedEvent ? selectedEvent.id : 0}
@@ -148,5 +147,4 @@ class EventDashboard extends Component {
     );
   }
 }
-
 export default EventDashboard;

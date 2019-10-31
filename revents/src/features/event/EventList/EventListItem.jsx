@@ -12,7 +12,7 @@ class EventListItem extends Component {
             <Item>
               <Item.Image size="tiny" circular src={event.hostPhotoURL} />
               <Item.Content>
-                <Item.Header as="a">{event.title}</Item.Header>
+                <Item.Header>{event.title} Title</Item.Header>
                 <Item.Description>Hosted by {event.hostedBy}</Item.Description>
               </Item.Content>
             </Item>
@@ -33,15 +33,7 @@ class EventListItem extends Component {
           </List>
         </Segment>
         <Segment clearing>
-          <span>{event.Description}</span>
-          
-          <Button
-            onClick={() => deleteEvent(event.id)}
-            as="a"
-            color="red"
-            floated="right"
-            content="Delete"
-          />
+          <span>{event.description}</span>
           <Button
             onClick={() => selectEvent(event)}
             as="a"
@@ -49,10 +41,17 @@ class EventListItem extends Component {
             floated="right"
             content="View"
           />
+
+          <Button
+            onClick={() => deleteEvent(event.id)}
+            as="a"
+            color="red"
+            floated="right"
+            content="Delete"
+          />
         </Segment>
       </Segment.Group>
     );
   }
 }
-
 export default EventListItem;
