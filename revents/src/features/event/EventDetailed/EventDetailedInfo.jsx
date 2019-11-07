@@ -36,7 +36,7 @@ const EventDetailedInfo = ({ event }) => {
           </Grid.Column>
           <Grid.Column width={4}>
             <Button
-              onClick={() => showMapToggle(!isMapOpen)}
+              onClick={() => showMapToggle(!isMapOpen)} 
               color="teal"
               size="tiny"
               content={isMapOpen ? 'Hide Map' : 'Show Map'}
