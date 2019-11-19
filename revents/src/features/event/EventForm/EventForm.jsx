@@ -57,20 +57,21 @@ class EventForm extends Component {
       venueLatLng: {}
   }
  
-  onFormSubmit = async values => {
+  onFormSubmit = values => {
     values.venueLatLng= this.state.venueLatLng;
-    try{
-      if (this.props.initialValues.id) {
-        this.props.updateEvent(values);
-        this.props.history.push(`/events/${this.props.initialValues.id}`);
-      } else { 
-        let createdEvent = await this.props.createEvent(values);
-        this.props.history.push(`/events/${createdEvent.id}`);
-      } 
-    }
-    catch (error){
-      console.log(error);
-    }
+    if (this.props.initialValues.id) {
+      this.props.updateEvent(values);
+      this.props.history.push(`/events/${this.props.initialValues.id}`);
+    } else {
+      const newEvent = {
+        ...values,
+        id: cuid(),
+        hostPhotoURL: "/assets/user.png"
+      };
+      this.props.createEvent(newEvent);
+      this.props.history.push(`/events/${newEvent.id}`);
+    } 
+    
   };
 
   handleCitySelect = selectedCity =>{
