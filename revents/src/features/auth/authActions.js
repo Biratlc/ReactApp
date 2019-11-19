@@ -30,12 +30,10 @@ export const registerUser = (user) =>
             console.log(createdUser);
             //update the auth profile
             await createdUser.user.updateProfile({
-                displayName: user.displayName,
-                email: user.email
+                displayName: user.displayName
             })
             //create a new profile in firestore
             let newUser = {
-                email: user.email,
                 displayName: user.displayName,
                 createdAt: firestore.FieldValue.serverTimestamp()
             };

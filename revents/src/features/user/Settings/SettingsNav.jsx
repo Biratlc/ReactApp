@@ -14,7 +14,7 @@ const SettingsNav = () => {
           About Me
         </Menu.Item>
         <Menu.Item as={NavLink} to="/settings/photos">
-          Set your Profile Picture
+          My Photos
         </Menu.Item>
       </Menu>
 
