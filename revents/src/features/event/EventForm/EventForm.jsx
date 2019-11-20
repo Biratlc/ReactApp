@@ -57,21 +57,20 @@ class EventForm extends Component {
       venueLatLng: {}
   }
  
-  onFormSubmit = values => {
+  onFormSubmit = async values => {
     values.venueLatLng= this.state.venueLatLng;
-    if (this.props.initialValues.id) {
-      this.props.updateEvent(values);
-      this.props.history.push(`/events/${this.props.initialValues.id}`);
-    } else {
-      const newEvent = {
-        ...values,
-        id: cuid(),
-        hostPhotoURL: "/assets/user.png"
-      };
-      this.props.createEvent(newEvent);
-      this.props.history.push(`/events/${newEvent.id}`);
-    } 
-    
+    try{
+      if (this.props.initialValues.id) {
+        this.props.updateEvent(values);
+        this.props.history.push(`/events/${this.props.initialValues.id}`);
+      } else { 
+        let createdEvent = await this.props.createEvent(values);
+        this.props.history.push(`/events/${createdEvent.id}`);
+      } 
+    }
+    catch (error){
+      console.log(error);
+    }
   };
 
   handleCitySelect = selectedCity =>{
@@ -149,14 +148,14 @@ class EventForm extends Component {
                 onSelect={this.handleVenueSelect}
                 placeholder="Event Venue"
               />
-              <Field
+              {/* <Field
                 name="date"
                 component={DateInput}
                 dateFormat='dd LLL yyyy h:mm a'
                 showTimeSelect
                 timeFormat='HH:mm'
                 placeholder="Event Date"
-              />
+              /> */}
 
               <Button disabled={invalid || submitting || pristine } positive type="submit">
                 Submit
