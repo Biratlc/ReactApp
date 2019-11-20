@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Segment, Item, Icon, List, Button } from "semantic-ui-react";
+import { Segment, Item, Icon, List, Button, Label } from "semantic-ui-react";
 import EventListAttendee from "./EventListAttendee";
 import { Link } from "react-router-dom";
-import {format, parseISO} from 'date-fns';
+import { objectToArray } from "../../../app/common/util/helpers";
+//import {format} from 'date-fns';
 
 class EventListItem extends Component {
   render() {
-    const { event, deleteEvent } = this.props;
+    const { event } = this.props;
     return (
       <Segment.Group>
         <Segment>
@@ -14,24 +15,37 @@ class EventListItem extends Component {
             <Item>
               <Item.Image size="tiny" circular src={event.hostPhotoURL} />
               <Item.Content>
-                <Item.Header>{event.title} Title</Item.Header>
-                <Item.Description>Hosted by {event.hostedBy}</Item.Description>
+                <Item.Header as={Link} to={`/events/${event.id}`}>
+                  {event.title} Title
+                </Item.Header>
+                <Item.Description>
+                  Hosted by{" "}
+                  <Link to={`/profile/${event.hostUid}`}>{event.hostedBy}</Link>
+                </Item.Description>
+                {event.cancelled && (
+                  <Label
+                    style={{ top: "-40px" }}
+                    ribbon="right"
+                    color="red"
+                    content="This event has been canceled"
+                  ></Label>
+                )}
               </Item.Content>
             </Item>
           </Item.Group>
         </Segment>
         <Segment>
-          {/* <span>
-            <Icon name="clock" /> {format(event.date.toDate(), 'do LLL EEEE')} at {' '} 
-            {format(event.date.toDate(), 'h:mm a')} |
+          <span>
+            {/* <Icon name="clock" /> {format(event.date.toDate(), 'do LLL EEEE')} at {' '} 
+            {format(event.date.toDate(), 'h:mm a')} | */}
             <Icon name="marker" /> {event.venue}
-          </span> */}
+          </span>
         </Segment>
         <Segment secondary>
           <List horizontal>
             {event.attendees &&
-              Object.values(event.attendees).map((attendee, index) => (
-                <EventListAttendee key={index} attendee={attendee} />
+              objectToArray(event.attendees).map(attendee => (
+                <EventListAttendee key={attendee.id} attendee={attendee} />
               ))}
           </List>
         </Segment>
@@ -43,14 +57,6 @@ class EventListItem extends Component {
             color="teal"
             floated="right"
             content="View"
-          />
-
-          <Button
-            onClick={() => deleteEvent(event.id)}
-            as="a"
-            color="red"
-            floated="right"
-            content="Delete"
           />
         </Segment>
       </Segment.Group>
