@@ -12,6 +12,7 @@ import UserDetailedPage from "../../features/user/UserDetailed/UserDetailedPage"
 import EventForm from "../../features/event/EventForm/EventForm";
 import TestComponent from "../../features/testarea/TestComponent";
 import ModalManager from "../../features/modals/ModalManager";
+import Discussion from "../../app/discussion/discussion";
 
 class App extends Component {
   render() {
@@ -33,6 +34,7 @@ class App extends Component {
                   <Route path="/settings" component={SettingsDashboard} />
                   <Route path={["/createEvent", "/manage/:id"]} component={EventForm} />
                   <Route path="/test" component={TestComponent} />
+                  <Route exact path="/discussion" component={Discussion} />
                 </Switch>
               </Container>
             </Fragment>

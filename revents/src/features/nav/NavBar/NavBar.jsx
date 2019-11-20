@@ -42,6 +42,7 @@ class NavBar extends Component {
             Re-vents
           </Menu.Item>
           <Menu.Item as={NavLink} exact to="/events" name="Events" />
+          <Menu.Item as={NavLink} exact to="/discussion" name="Discussion Board" />
           {authenticated && 
           <Fragment>
               <Menu.Item as={NavLink} to="/people" name="People" />
