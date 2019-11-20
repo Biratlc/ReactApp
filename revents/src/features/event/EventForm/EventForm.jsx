@@ -148,14 +148,14 @@ class EventForm extends Component {
                 onSelect={this.handleVenueSelect}
                 placeholder="Event Venue"
               />
-              <Field
+              {/* <Field
                 name="date"
                 component={DateInput}
                 dateFormat='dd LLL yyyy h:mm a'
                 showTimeSelect
                 timeFormat='HH:mm'
                 placeholder="Event Date"
-              />
+              /> */}
 
               <Button disabled={invalid || submitting || pristine } positive type="submit">
                 Submit

@@ -1,4 +1,8 @@
-import { tryStatement } from "@babel/types"
+export const objectToArray = (object) => {
+    if(object) {
+        return Object.entries(object).map(e => Object.assign({}, e[1], {id: e[0]}))
+    }
+}
 
 export const createNewEvent = (user, photoURL, event) => {
     return{
@@ -9,7 +13,7 @@ export const createNewEvent = (user, photoURL, event) => {
         created: new Date(),
         attendees:{
             [user.uid]:{
-                going: tryStatement,
+                going: true,
                 joinDtae: new Date(),
                 photoURL: photoURL || '/assets/user.png',
                 displayName: user.displayName,

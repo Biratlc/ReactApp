@@ -35,10 +35,10 @@ const EventDetailedHeader = ({ event }) => {
                   content={event.title}
                   style={{ color: "white" }}
                 />
-                <p>{event.date && format(parseISO(event.date), 'do LLLL EEEE')}</p>
+                {/* <p>{event.date && format(parseISO(event.date), 'do LLLL EEEE')}</p>
                 <p>
                   Hosted by <strong>{event.hostedBy}}</strong>
-                </p>
+                </p> */}
               </Item.Content>
             </Item>
           </Item.Group>

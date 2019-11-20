@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import "./App.css";
 import NavBar from "../../features/nav/NavBar/NavBar";
-import { Container } from "semantic-ui-react";
+
 import { Route, Switch, withRouter } from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
 import EventDashboard from "../../features/event/EventDashboard/EventDashboard";
@@ -12,7 +12,7 @@ import UserDetailedPage from "../../features/user/UserDetailed/UserDetailedPage"
 import EventForm from "../../features/event/EventForm/EventForm";
 import TestComponent from "../../features/testarea/TestComponent";
 import ModalManager from "../../features/modals/ModalManager";
-import Discussion from "../../app/discussion/discussion";
+import { Container } from "semantic-ui-react";
 
 class App extends Component {
   render() {

@@ -23,11 +23,11 @@ const EventDetailedInfo = ({ event }) => {
             <Icon name="calendar" size="large" color="teal" />
           </Grid.Column>
           <Grid.Column width={15}>
-            {event.date &&
+            {/* {event.date &&
             <span>
               {format(parseISO(event.date), 'do LLL EEEE')} at {' '} 
               {format(parseISO(event.date), 'h:mm a')}
-            </span>}
+            </span>} */}
           </Grid.Column>
         </Grid>
       </Segment>
