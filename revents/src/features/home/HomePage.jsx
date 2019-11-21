@@ -1,9 +1,13 @@
-import React, { Fragment } from "react";
+import React, { Fragment,Component } from "react";
 import { Container, Grid, Card } from "semantic-ui-react";
 import NavBar from "../nav/NavBar/NavBar";
 import "./Home.css";
 
-const HomePage = () => {
+class HomePage extends Component {
+   componentDidMount() {
+    window.twttr.widgets.load();
+  };
+  render() { 
   return (
     <Fragment>
       <NavBar />
@@ -152,6 +156,7 @@ const HomePage = () => {
     //   </Container>
     // </Segment>
   );
+  }
 };
 
 export default HomePage;
