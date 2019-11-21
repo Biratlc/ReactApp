@@ -8,7 +8,7 @@ import UserDetailedDescription from './UserDetailedDescription';
 //import UserDetailedEvents from './UserDetailedEvents';
 import UserDetailedSidebar from './UserDetailedSidebar';
 import { userDetailedQuery } from "../userDetailedQueries";
-
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 const mapState = (state, ownProps) => {
   let userUid = null;
@@ -27,15 +27,17 @@ const mapState = (state, ownProps) => {
       profile,
       userUid,
       auth: state.firebase.auth,
-     
+      requesting: state.firestore.status.requesting
     }
   
     };
 
   class UserDetailedPage extends Component {
     render() {
-      const { profile, auth, match} = this.props;
+      const { profile, auth, match, requesting} = this.props;
       const isCurrentUser = auth.uid === match.params.id;
+      const loading = Object.values(requesting).some(a => a === true);
+      if(loading) return <LoadingComponent />
       return (
         <Grid>
           <UserDetailedHeader profile={profile} />

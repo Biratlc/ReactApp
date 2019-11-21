@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Segment, Form, Header, Divider, Button } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
-import DateInput from '../../../app/common/form/DateInput';
+// import DateInput from '../../../app/common/form/DateInput';
+// import { addYears } from 'date-fns';
 import PlaceInput from '../../../app/common/form/PlaceInput';
 import TextInput from '../../../app/common/form/TextInput';
 import RadioInput from '../../../app/common/form/RadioInput';
-import { addYears } from 'date-fns';
+
 
 class BasicPage extends Component {
   render() {
@@ -38,7 +39,7 @@ class BasicPage extends Component {
               component={RadioInput}
             />
           </Form.Group>
-          <Field
+          {/* <Field
             width={8}
             name='dateOfBirth'
             component={DateInput}
@@ -48,7 +49,7 @@ class BasicPage extends Component {
             showMonthDropdown={true}
             dropdownMode='select'
             maxDate={addYears(new Date(), -18)}
-          />
+          /> */}
           <Field
             name='city'
             placeholder='Home Town'
