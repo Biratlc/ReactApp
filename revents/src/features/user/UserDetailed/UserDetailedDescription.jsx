@@ -17,9 +17,9 @@ const UserDetailedDescription = ({ profile }) => {
             </p> */}
             <p>
               Member Since:{' '}
-              {/* <strong>
-                {profile.createdAt && format(profile.createdAt.toDate(), 'DD LLL YYYY')}
-              </strong> */}
+              <strong>
+                {profile.createdAt && format(profile.createdAt.toDate(), 'dd LLL yyyy')}
+              </strong>
             </p>
             <p>{profile.description}</p>
           </Grid.Column>

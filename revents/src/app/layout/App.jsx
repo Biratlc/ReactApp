@@ -12,6 +12,7 @@ import UserDetailedPage from "../../features/user/UserDetailed/UserDetailedPage"
 import EventForm from "../../features/event/EventForm/EventForm";
 import TestComponent from "../../features/testarea/TestComponent";
 import ModalManager from "../../features/modals/ModalManager";
+import discussion from "../discussion/discussion"
 import { Container } from "semantic-ui-react";
 
 class App extends Component {
@@ -34,7 +35,7 @@ class App extends Component {
                   <Route path="/settings" component={SettingsDashboard} />
                   <Route path={["/createEvent", "/manage/:id"]} component={EventForm} />
                   <Route path="/test" component={TestComponent} />
-                  <Route exact path="/discussion" component={Discussion} />
+                  <Route exact path="/discussion" component={discussion} />
                 </Switch>
               </Container>
             </Fragment>

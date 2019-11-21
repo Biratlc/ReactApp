@@ -16,7 +16,7 @@ class EventListItem extends Component {
               <Item.Image size="tiny" circular src={event.hostPhotoURL} />
               <Item.Content>
                 <Item.Header as={Link} to={`/events/${event.id}`}>
-                  {event.title} Title
+                  {event.title}
                 </Item.Header>
                 <Item.Description>
                   Hosted by{" "}

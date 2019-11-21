@@ -38,17 +38,17 @@ class BasicPage extends Component {
               component={RadioInput}
             />
           </Form.Group>
-          {/* <Field
+          <Field
             width={8}
             name='dateOfBirth'
             component={DateInput}
-            dateFormat='dd LLL YYYY'
+            placeholder='Date of Birth'
+            dateFormat='dd LLL yyyy'
             showYearDropdown={true}
             showMonthDropdown={true}
             dropdownMode='select'
-            placeholder='Date of Birth'
             maxDate={addYears(new Date(), -18)}
-          /> */}
+          />
           <Field
             name='city'
             placeholder='Home Town'

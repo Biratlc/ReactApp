@@ -1,14 +1,5 @@
-/*global google*/
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
-import {combineValidators, isRequired} from 'revalidate';
-// import {composeValidators, combineValidators, isRequired, hasLengthGreaterThan} from 'revalidate';
-import { Segment, Form, Button, Grid, Header,select  } from "semantic-ui-react";
-
-
-
-
+import { Segment, Form, Button, Grid} from "semantic-ui-react";
   
 export default class Discussion extends Component {
   

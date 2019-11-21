@@ -6,7 +6,6 @@ import {Grid} from "semantic-ui-react";
 import UserDetailedHeader from './UserDetailedHeader';
 import UserDetailedDescription from './UserDetailedDescription';
 //import UserDetailedEvents from './UserDetailedEvents';
-import UserDetailedPhotos from './UserDetailedPhotos';
 import UserDetailedSidebar from './UserDetailedSidebar';
 import { userDetailedQuery } from "../userDetailedQueries";
 
@@ -28,22 +27,21 @@ const mapState = (state, ownProps) => {
       profile,
       userUid,
       auth: state.firebase.auth,
-      photos: state.firebase.ordered.photos
-    
+     
     }
   
     };
 
   class UserDetailedPage extends Component {
     render() {
-      const { profile, photos } = this.props;
+      const { profile, auth, match} = this.props;
+      const isCurrentUser = auth.uid === match.params.id;
       return (
         <Grid>
           <UserDetailedHeader profile={profile} />
           <UserDetailedDescription profile={profile}/>
-          <UserDetailedSidebar/>
-          {photos && photos.length > 0 &&
-          <UserDetailedPhotos photos = {photos} />}
+          <UserDetailedSidebar isCurrentUser={isCurrentUser}/>
+          
          
         </Grid>
       );
