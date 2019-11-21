@@ -10,16 +10,17 @@ import PeopleDashboard from "../../features/user/PeopleDashboard/PeopleDashboard
 import SettingsDashboard from "../../features/user/Settings/SettingsDashboard";
 import UserDetailedPage from "../../features/user/UserDetailed/UserDetailedPage";
 import EventForm from "../../features/event/EventForm/EventForm";
+import DiscussionForm from "../../features/discussion/DiscussionForm/DiscussionForm";
 import TestComponent from "../../features/testarea/TestComponent";
 import ModalManager from "../../features/modals/ModalManager";
-import discussion from "../discussion/discussion"
+import DiscussionDetailedPage from "../../features/discussion/DiscussionDetailed/DiscussionDetailedPage";
 import { Container } from "semantic-ui-react";
 
 class App extends Component {
   render() {
     return (
       <Fragment>
-        <ModalManager/>
+        <ModalManager />
         <Route exact path="/" component={HomePage} />
         <Route
           path="/(.+)"
@@ -31,11 +32,22 @@ class App extends Component {
                   <Route exact path="/events" component={EventDashboard} />
                   <Route path="/events/:id" component={EventDetailedPage} />
                   <Route path="/people" component={PeopleDashboard} />
-                  <Route path = '/profile/:id' component={UserDetailedPage} />
+                  <Route path="/profile/:id" component={UserDetailedPage} />
                   <Route path="/settings" component={SettingsDashboard} />
-                  <Route path={["/createEvent", "/manage/:id"]} component={EventForm} />
+                  <Route
+                    path={["/createEvent", "/manage/:id"]}
+                    component={EventForm}
+                  />
+                  <Route
+                    path={["/createDiscussion", "/manage/:id"]}
+                    component={DiscussionForm}
+                  />
                   <Route path="/test" component={TestComponent} />
-                  <Route exact path="/discussion" component={discussion} />
+                  <Route
+                    exact
+                    path="/discussion"
+                    component={DiscussionDetailedPage}
+                  />
                 </Switch>
               </Container>
             </Fragment>
