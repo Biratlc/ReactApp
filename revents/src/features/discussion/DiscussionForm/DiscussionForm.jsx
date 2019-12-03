@@ -1,17 +1,45 @@
 import React, { Component } from "react";
-import { combineValidators, isRequired } from "revalidate";
 import {
   Segment,
   Form,
   Button,
   Grid,
-  Header,
-  TextArea
+  Header
 } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { createDiscussion } from "../discussionActions";
+import { combineValidators, isRequired } from "revalidate";
+import { Field, reduxForm } from "redux-form";
+import TextArea from "../../../app/common/form/TextArea"
+import TextInput from "../../../app/common/form/TextInput";
 import SelectInput from "../../../app/common/form/SelectInput";
-import PlaceInput from "../../../app/common/form/PlaceInput";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import { Field } from "redux-form";
+import { withFirestore } from "react-redux-firebase";
+
+const mapState = (state, ownProps) => {
+  const discussionId = ownProps.match.params.id;
+
+  let discussion = {};
+
+  if (discussionId && state.discussions.length > 0) {
+    discussion = state.discussions.filter(
+      discussion => discussion.id === discussionId
+    )[0];
+  }
+
+  return {
+    initialValues: discussion
+  };
+};
+
+const actions = {
+  createDiscussion
+};
+
+const validate = combineValidators({
+  title: isRequired({ message: "The discussion post title is required" }),
+  description: isRequired({message: "Please write a brief description about the post"}),
+  category: isRequired({ message: "The category is required" })
+});
 
 const category = [
   { key: "CMPS161", text: "CMPS161", value: "CMPS161" },
@@ -38,106 +66,81 @@ const category = [
 ];
 
 class DiscussionForm extends Component {
+  onFormSubmit = async values => {
+    try {
+      if (this.props.initialValues.id) {
+        this.props.history.push(`/discussions/${this.props.initialValues.id}`);
+      } else {
+        let createdDiscussion = await this.props.createDiscussion(values);
+        this.props.history.push(`/discussions/${createdDiscussion.id}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   render() {
+    const { invalid, submitting, pristine } = this.props;
     return (
       <Grid>
         <Grid.Column width={10}>
           <Segment>
-            <Form onSubmit={this.handleFormSubmit} autoComplete="off">
-              <Form.Field>
-                <Header sub color="teal" content="Discussion Details" />
-                <input name="title" placeholder="Discussion Title" />
-              </Form.Field>
-              <Form.Field>
-                <TextArea
-                  rows={2}
-                  placeholder="Tell us more about your Discussion"
-                />
-              </Form.Field>
-              <Form.Field>
-                <label>Choose your major</label>
-                <select class="ui dropdown">
-                  <option value="">
-                    Which class is your discussion related to?
-                  </option>
-                  <option value="0"> CMPS161</option>
-                  <option value="0"> CMPS280</option>
-                  <option value="0">CMPS285</option>
-                  <option value="0"> CMPS290</option>
-                  <option value="0"> CMPS390</option>
-                  <option value="0"> CMPS375</option>
-                  <option value="0"> CMPS415</option>
-                  <option value="0"> CMPS431</option>
-                  <option value="0"> CMPS479</option>
-                  <option value="0"> CMPS482</option>
-                  <option value="0"> CMPS411</option>
-                  <option value="0"> CMPS383</option>
-                  <option value="0"> CMPS411</option>
-                  <option value="0"> CMPS315</option>
-                  <option value="0"> CMPS329</option>
-                  <option value="0"> CMPS439</option>
-                  <option value="0"> MATH201</option>
-                  <option value="0"> MATH392</option>
-                  <option value="0"> MATH380</option>
-                  <option value="0"> MATH312</option>
-                  <option value="0"> MATH350</option>
-                </select>
-              </Form.Field>
+            <Header sub color="teal" content="Discussion Post Details" />
+            <Form
+              onSubmit={this.props.handleSubmit(this.onFormSubmit)}
+              autoComplete="off"
+            >
+              <Field
+                name="title"
+                component={TextInput}
+                placeholder="What is this post about?"
+              />
 
-              <Button positive type="submit">
+              <Field
+                name="description"
+                component={TextArea}
+
+                row={3}
+                placeholder="Write a brief description about your post"
+              />
+
+              <Header
+                sub
+                color="teal"
+                content="Please select the category this post is related to"
+              />
+              <Field
+                name="category"
+                component={SelectInput}
+                options={category}
+                multiple={false}
+                placeholder="category"
+              />
+
+              <Button
+                disabled={invalid || submitting || pristine}
+                positive
+                type="submit"
+              >
                 Submit
               </Button>
-              <Button type="button"> Cancel </Button>
+
+              <Button type="button">Cancel</Button>
             </Form>
           </Segment>
         </Grid.Column>
       </Grid>
-
-      //   <Grid>
-      //     <Grid.Column width={10}>
-      //       <Segment>
-      //         <Header sub color="teal" content="Discussion Details" />
-      //         <Form autoComplete="off">
-      //           <Form
-      //             name="title"
-      //             component={TextInput}
-      //             options={category}
-      //             placeholder="Discussion Title"
-      //           />
-      //           <Form
-      //             name="category"
-      //             component={SelectInput}
-      //             options={category}
-      //             multiple={true}
-      //             placeholder="Which class is your Discussion related to?"
-      //           />
-      //           <Form
-      //             name="description"
-      //             component={TextArea}
-      //             rows={3}
-      //             placeholder="Tell us more about the discussio"
-      //           />
-
-      //           {/* <Field
-      //             name="date"
-      //             component={DateInput}
-      //             dateFormat='dd LLL yyyy h:mm a'
-      //             showTimeSelect
-      //             timeFormat='HH:mm'
-      //             placeholder="Event Date"
-      //           /> */}
-
-      //           <Button positive type="submit">
-      //             Submit
-      //           </Button>
-      //           <Button type="button">Cancel</Button>
-      //           <Button type="button" floated="right" />
-      //         </Form>
-      //       </Segment>
-      //     </Grid.Column>
-      //   </Grid>
     );
   }
 }
 
-export default DiscussionForm;
+export default withFirestore(
+  connect(
+    mapState,
+    actions
+  )(
+    reduxForm({ form: "discussionForm", validate, enableReinitialize: true })(
+      DiscussionForm
+    )
+  )
+);

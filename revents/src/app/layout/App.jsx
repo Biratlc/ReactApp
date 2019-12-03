@@ -13,8 +13,9 @@ import EventForm from "../../features/event/EventForm/EventForm";
 import DiscussionForm from "../../features/discussion/DiscussionForm/DiscussionForm";
 import TestComponent from "../../features/testarea/TestComponent";
 import ModalManager from "../../features/modals/ModalManager";
-import DiscussionDetailedPage from "../../features/discussion/DiscussionDetailed/DiscussionDetailedPage";
 import { Container } from "semantic-ui-react";
+import DiscussionDashboard from "../../features/discussion/DiscussionDashboard/DiscussionDashboard";
+import DiscussionDetailedPage from "../../features/discussion/DiscussionDetailed/DiscussionDetailedPage";
 
 class App extends Component {
   render() {
@@ -45,9 +46,10 @@ class App extends Component {
                   <Route path="/test" component={TestComponent} />
                   <Route
                     exact
-                    path="/discussion"
-                    component={DiscussionDetailedPage}
+                    path="/discussions"
+                    component={DiscussionDashboard}
                   />
+                  <Route path="/discussions/:id" component={DiscussionDetailedPage} />
                 </Switch>
               </Container>
             </Fragment>
