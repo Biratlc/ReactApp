@@ -37,7 +37,7 @@ class EventDetailedChat extends Component {
           color="teal"
           style={{ border: "none" }}
         >
-          <Header>Chat about this event</Header>
+          <Header>Leave your comment down below</Header>
         </Segment>
 
         <Segment attached>

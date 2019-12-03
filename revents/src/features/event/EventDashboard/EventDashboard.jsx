@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Button } from "semantic-ui-react";
 import EventList from "../EventList/EventList";
 import { connect } from "react-redux";
 import { createEvent, updateEvent } from "../eventActions";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-import EventActivity from "../EventActivity/EventActivity";
+//import EventActivity from "../EventActivity/EventActivity";
 import { firestoreConnect, isLoaded } from "react-redux-firebase";
+import { Link } from "react-router-dom";
 
 const mapState = state => ({
   events: state.firestore.ordered.events
@@ -26,11 +27,23 @@ class EventDashboard extends Component {
     if (!isLoaded(events)) return <LoadingComponent />;
     return (
       <Grid>
-        <Grid.Column width={10}>
+        <Grid.Column width={11}>
           <EventList events={events} deleteEvent={this.handleDeleteEvent} />
         </Grid.Column>
-        <Grid.Column width={6}>
-          <EventActivity />
+        <Grid.Column width={5}>
+          <Grid.Row>
+          <Button
+            as={Link}
+            to="/createEvent"
+            floated="left"
+            positive
+            inverted
+            content="Create Event"
+          />
+            </Grid.Row>
+           <Grid.Row>
+           {/* <EventActivity />   */}
+           </Grid.Row>
         </Grid.Column>
       </Grid>
     );
