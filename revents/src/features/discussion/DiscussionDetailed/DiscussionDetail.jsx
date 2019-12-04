@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Segment, Grid, Icon } from 'semantic-ui-react'
 import { format } from 'date-fns'
 

@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react'
-import { Segment, Item } from 'semantic-ui-react'
+import { Segment } from 'semantic-ui-react'
+
 
 const DiscussionDetailSidebar = ({discussion}) => {
+   
+    
     return (
         <Fragment>
             <Segment
@@ -14,9 +17,16 @@ const DiscussionDetailSidebar = ({discussion}) => {
         >
             Post related to:
         </Segment>
-        <Segment attached>
-    <Item>{discussion.category}</Item>
+        <Segment  attached textAlign="center"
+                style={{border: "none"}}
+                
+                secondary
+                inverted
+                color="grey">
+        {discussion.category}
         </Segment>
+       
+        
         </Fragment>
     )
 }

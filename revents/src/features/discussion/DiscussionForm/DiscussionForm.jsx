@@ -14,20 +14,24 @@ import TextArea from "../../../app/common/form/TextArea"
 import TextInput from "../../../app/common/form/TextInput";
 import SelectInput from "../../../app/common/form/SelectInput";
 import { withFirestore } from "react-redux-firebase";
+import { Link } from "react-router-dom";
 
 const mapState = (state, ownProps) => {
   const discussionId = ownProps.match.params.id;
 
   let discussion = {};
 
-  if (discussionId && state.discussions.length > 0) {
-    discussion = state.discussions.filter(
-      discussion => discussion.id === discussionId
-    )[0];
+  if (
+    state.firestore.ordered.discussions &&
+    state.firestore.ordered.discussions.length > 0
+  ) {
+    discussion =
+      state.firestore.ordered.discussions.filter(discussion => discussion.id === discussionId)[0] ||
+      {};
   }
-
   return {
-    initialValues: discussion
+    initial: discussion,
+    discussion
   };
 };
 
@@ -68,16 +72,23 @@ const category = [
 class DiscussionForm extends Component {
   onFormSubmit = async values => {
     try {
-      if (this.props.initialValues.id) {
-        this.props.history.push(`/discussions/${this.props.initialValues.id}`);
-      } else {
         let createdDiscussion = await this.props.createDiscussion(values);
         this.props.history.push(`/discussions/${createdDiscussion.id}`);
-      }
     } catch (error) {
       console.log(error);
     }
   };
+
+  async componentDidMount() {
+    const { firestore, match } = this.props;
+    await firestore.setListener(`discussions/${match.params.id}`);
+  }
+
+  async componentWillUnmount() {
+    const { firestore, match } = this.props;
+    await firestore.unsetListener(`discussions/${match.params.id}`);
+  }
+
 
   render() {
     const { invalid, submitting, pristine } = this.props;
@@ -125,7 +136,8 @@ class DiscussionForm extends Component {
                 Submit
               </Button>
 
-              <Button type="button">Cancel</Button>
+              <Button  as={Link}
+            to="/discussions" type="button">Cancel</Button>
             </Form>
           </Segment>
         </Grid.Column>
