@@ -16,6 +16,9 @@ import ModalManager from "../../features/modals/ModalManager";
 import { Container } from "semantic-ui-react";
 import DiscussionDashboard from "../../features/discussion/DiscussionDashboard/DiscussionDashboard";
 import DiscussionDetailedPage from "../../features/discussion/DiscussionDetailed/DiscussionDetailedPage";
+/*import LoginComponent from "../Chat/Login/login";*/
+import DashboardComponent from "../Chat/Dashboard/dashboard";
+
 
 class App extends Component {
   render() {
@@ -35,6 +38,7 @@ class App extends Component {
                   <Route path="/people" component={PeopleDashboard} />
                   <Route path="/profile/:id" component={UserDetailedPage} />
                   <Route path="/settings" component={SettingsDashboard} />
+                  <Route path="/chat" component={DashboardComponent} />
                   <Route
                     path={["/createEvent", "/manage/:id"]}
                     component={EventForm}

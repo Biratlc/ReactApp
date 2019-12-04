@@ -7,6 +7,7 @@ import SignedOutMenu from "../Menus/SignedOutMenu";
 import SignedInMenu from "../Menus/SignedInMenu";
 import { openModal } from "../../modals/modalActions";
 
+
 const actions = {
   openModal
 };
@@ -43,6 +44,7 @@ class NavBar extends Component {
           {authenticated && (
             <Fragment>
               <Menu.Item as={NavLink} exact to="/events" name="Events" />
+              <Menu.Item as={NavLink} exact to="/chat" name="Chat" />
               <Menu.Item
                 as={NavLink}
                 exact
