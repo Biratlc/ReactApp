@@ -4,7 +4,7 @@ import ChatListComponent from '../ChatList/chatList';
 import ChatViewComponent from '../ChatView/chatView';
 import ChatTextBoxComponent from '../ChatTextBox/chatTextBox';
 import styles from './styles';
-import { Button, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 const firebase = require("firebase");
 
 // I need to investigate why sometimes
@@ -30,7 +30,7 @@ class DashboardComponent extends React.Component {
 
   render() {
 
-    const { classes } = this.props;
+  
 
     if(this.state.email) {
       return(
@@ -143,7 +143,7 @@ class DashboardComponent extends React.Component {
   componentWillMount = () => {
       firebase.auth().onAuthStateChanged(async _usr => {
         if(!_usr)
-          this.props.history.push('/login');
+          this.props.history.push('/');
         else {
           await firebase
             .firestore()

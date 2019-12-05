@@ -19,7 +19,7 @@ const AccountPage = ({ error, invalid, submitting, handleSubmit, updatePassword,
       {providerId && providerId === 'password' &&
       <div>
         <Header color="teal" sub content="Change password" />
-        <p>Use this form to update your account settings</p>
+       
         <Form onSubmit={handleSubmit(updatePassword)}>
           <Field
             width={8}

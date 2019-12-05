@@ -21,6 +21,7 @@ const UserDetailedDescription = ({ profile }) => {
                 {profile.createdAt && format(profile.createdAt.toDate(), 'dd LLL yyyy')}
               </strong>
             </p>
+            <p>{profile.email}</p>
             <p>{profile.description}</p>
           </Grid.Column>
           <Grid.Column width={6}>

@@ -13,6 +13,7 @@ import PlaceInput from "../../../app/common/form/PlaceInput";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { withFirestore } from "react-redux-firebase";
 
+
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id;
 
@@ -179,14 +180,7 @@ class EventForm extends Component {
                 onSelect={this.handleVenueSelect}
                 placeholder="Event Venue"
               />
-              {/* <Field
-                name="date"
-                component={DateInput}
-                dateFormat='dd LLL yyyy h:mm a'
-                showTimeSelect
-                timeFormat='HH:mm'
-                placeholder="Event Date"
-              /> */}
+
 
               <Button
                 disabled={invalid || submitting || pristine}

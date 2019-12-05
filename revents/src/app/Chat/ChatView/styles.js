@@ -11,6 +11,10 @@ const styles = theme => ({
     width: "calc(100% - 300px)",
     position: "absolute"
   },
+  timer:{
+    color:"black",
+  fontSize:"10px"
+  },
 
   userSent: {
     float: "right",
@@ -19,7 +23,7 @@ const styles = theme => ({
     padding: "10px",
     boxSizing: "border-box",
     wordWrap: "break-word",
-    marginTop: "10px",
+    marginTop: "25px",
     backgroundColor: "rgb(0, 102, 51)",
     color: "white",
     width: "300px",
@@ -33,7 +37,7 @@ const styles = theme => ({
     padding: "10px",
     boxSizing: "border-box",
     wordWrap: "break-word",
-    marginTop: "5px",
+    marginTop: "25px",
     paddingBottom: "5px",
     marginLeft: "20px",
     backgroundColor: "#AA930A",
