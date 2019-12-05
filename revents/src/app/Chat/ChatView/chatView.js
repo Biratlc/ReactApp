@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 
 class ChatViewComponent extends React.Component {
 
@@ -33,6 +34,8 @@ class ChatViewComponent extends React.Component {
                 return(
                 <div key={_index} className={_msg.sender === this.props.user ? classes.userSent : classes.friendSent}>
                   {_msg.message}
+                 
+                  <div className={classes.timer}>{moment(_msg.timestamp).calendar()}</div>
                 </div>
                 )
               })

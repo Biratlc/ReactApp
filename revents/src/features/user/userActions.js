@@ -1,6 +1,8 @@
 import { asyncActionFinish, asyncActionError, asyncActionStart } from "../async/aysncActions";
 import cuid from "cuid";
 import {toastr} from "react-redux-toastr";
+import firebase from '../../app/config/firebase';
+import { ASYNC_ACTION_ERROR } from "../async/asyncConstants";
 
 export const updateProfile = user => async (
     dispatch,
@@ -84,15 +86,47 @@ export const deletePhoto = photo => async (
   };
 
 export const setMainPhoto = photo => 
-    async (dispatch, getState, {getFirebase})=>{
-        const firebase = getFirebase();
+    async (dispatch, getState)=>{
+        const firestore = firebase.firestore();
+        const user = firebase.auth().currentUser;
+        let userDocRef = firestore.collection('users').doc(user.uid);
+        let eventAttendeeRef = firestore.collection('event_attendee');
         try{
-            return await firebase.updateProfile({
-                photoURL: photo.url
-            });
+           dispatch(asyncActionStart())
+           let batch = firestore.batch();
+           batch.update(userDocRef, {
+             photoURL: photo.url
+           })
+
+           let eventQuery = await eventAttendeeRef
+              .where('userUid','==', user.uid)
+               
+              let eventQuerySnap = await eventQuery.get();
+
+              for (let i=0; i<eventQuerySnap.docs.length; i++){
+                let eventDocRef = await firestore 
+                  .collection('events')
+                  .doc(eventQuerySnap.docs[i].data().eventId);
+                let event = await eventDocRef.get();
+                if(event.data().hostUid === user.uid){
+                  batch.update(eventDocRef,{
+                    hostPhotoURL: photo.url,
+                    [`attendees.${user.uid}.photoURL`]:photo.url
+                  })
+                }
+                else{
+                  batch.update(eventDocRef, {
+                    [`attendees.${user.uid}.photoURL`]:photo.url
+                  })
+                }
+              }
+              console.log(batch);
+              await batch.commit();
+              dispatch(asyncActionFinish())
         }
         catch(error){
             console.log(error);
+            dispatch(ASYNC_ACTION_ERROR())
             throw new Error('Problem setting new profile picture')
         }
     }

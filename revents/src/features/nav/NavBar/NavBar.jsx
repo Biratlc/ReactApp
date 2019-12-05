@@ -52,7 +52,7 @@ class NavBar extends Component {
                 name="Discussion Board"
               />
 
-              <Menu.Item as={NavLink} to="/test" name="Test" />
+              {/* <Menu.Item as={NavLink} to="/test" name="Test" /> */}
               
             </Fragment>
           )}
