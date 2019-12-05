@@ -1,11 +1,8 @@
 const styles = theme => ({
 
   sendBtn: {
-    color: 'blue',
-    cursor: 'pointer',
-    '&:hover': {
-      color: 'gray'
-    }
+    color: 'rgb(0, 102, 51)',
+    cursor: 'pointer'
   },
 
   chatTextBoxContainer: {

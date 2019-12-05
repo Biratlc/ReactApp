@@ -13,7 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import NotificationImportant from '@material-ui/icons/NotificationImportant';
 
 class ChatListComponent extends React.Component {
-
+  
   render() {
 
     const { classes } = this.props;
@@ -28,6 +28,7 @@ class ChatListComponent extends React.Component {
               className={classes.newChatBtn}>
                 New Message
             </Button>
+            
             <List>
               {
                 this.props.chats.map((_chat, _index) => {
