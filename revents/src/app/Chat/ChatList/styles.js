@@ -4,6 +4,7 @@ const styles = theme => ({
     height: 'calc(100% - 35px)',
     position: 'absolute',
     left: '0',
+    top: '40px',
     width: '300px',
     boxShadow: '0px 0px 2px black'
   },
@@ -11,8 +12,13 @@ const styles = theme => ({
     cursor: 'pointer'
   },
   newChatBtn: {
-    borderRadius: '0px'
-  },
+    borderRadius: '0px',
+    backgroundColor: 'rgb(0, 102, 51)',
+    '&:hover': {
+      background: '#AA930A'  
+    }
+},
+ 
   unreadMessage: {
     color: 'red',
     position: 'absolute',
@@ -20,5 +26,7 @@ const styles = theme => ({
     right: '5px'
   }
 });
+
+
 
 export default styles;
