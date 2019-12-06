@@ -42,7 +42,7 @@ const mapState = (state, ownProps) => {
         <Grid>
           <UserDetailedHeader profile={profile} />
           <UserDetailedDescription profile={profile}/>
-          <UserDetailedSidebar isCurrentUser={isCurrentUser}/>
+          <UserDetailedSidebar isCurrentUser={isCurrentUser} profile={profile}/>
           
          
         </Grid>
